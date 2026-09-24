@@ -13,8 +13,8 @@ const rl = readlinePromises.createInterface({ input, output });
 async function numPeople() {
 
     let amount_people = 0
-    while(amount_people % 2 === 0) {
-        amount_people = await rl.question(`How many contestants are there (must be odd): `)
+    while(amount_people % 2 == 0) {
+        amount_people = Number(await rl.question(`How many contestants are there (must be odd): `))
     }
 
     if (amount_people < 3) {
@@ -102,10 +102,14 @@ async function voting(people, nominees, hoh) {
 
     for (let i = 0; i < voters.length; i++) {
 
-        let vote = ""
+        console.clear()
 
+        for (let i = 0; i < nominees.length; i++) {
+            console.log(`${nominees[i]}, you are up for eviction`)
+        }
+
+        let vote = ""
         while (!nominees.includes(vote)) {
-            console.clear()
             vote = await rl.question(`${voters[i]} who do you want to evict: `)
         }
 
@@ -154,11 +158,17 @@ async function winner(people, jury) {
 
     for (let i = 0; i < jury.length; i++) {
 
+        console.clear()
+
+        for (let i = 0; i < people.length; i++) {
+            console.log(`${people[i]}, you are a finalist`)
+        }
+
         let vote = ""
+
         while (vote != people[0] && vote != people[1]) {
-            console.clear()
             vote = await rl.question(
-                `${jury[i]} who do you think should win this season of Big Brother: `
+                `${jury[i]} who do you think should win Big Brother: `
             )
         }
 
@@ -318,7 +328,7 @@ async function askQuestion() {
     if (people.length == 3) {
 
         let hoh = final_3_hoh(people)
-        console.log(`${new_hoh}, you are the new HEAD OF HOUSEHOLD`)
+        console.log(`${hoh}, you are the new HEAD OF HOUSEHOLD`)
         let eliminated = ""
         while (!people.includes(eliminated) || eliminated == hoh) {
             eliminated = await rl.question(`${hoh}, who do you evict: `)
