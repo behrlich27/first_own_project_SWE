@@ -105,6 +105,7 @@ async function voting(people, nominees, hoh) {
         let vote = ""
 
         while (!nominees.includes(vote)) {
+            console.clear()
             vote = await rl.question(`${voters[i]} who do you want to evict: `)
         }
 
@@ -155,6 +156,7 @@ async function winner(people, jury) {
 
         let vote = ""
         while (vote != people[0] && vote != people[1]) {
+            console.clear()
             vote = await rl.question(
                 `${jury[i]} who do you think should win this season of Big Brother: `
             )
