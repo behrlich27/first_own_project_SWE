@@ -82,7 +82,7 @@ function blockbuster(nominees) {
 
 }
 
-async function voting(people, nominees, hoh) {
+async function voting(people, nominees, hoh, blockbuster_winner) {
 
     let voters = []
     let nom1 = 0
@@ -103,6 +103,9 @@ async function voting(people, nominees, hoh) {
     for (let i = 0; i < voters.length; i++) {
 
         console.clear()
+
+        if (typeof blockbuster_winner != "undefined")
+        console.log(`${blockbuster_winner}, you have won the BB BLOCKBUSTER`)
 
         for (let i = 0; i < nominees.length; i++) {
             console.log(`${nominees[i]}, you are up for eviction`)
@@ -268,7 +271,7 @@ async function askQuestion() {
         }
         let blockbuster_winner = blockbuster(nominees)
         remove_person(nominees, blockbuster_winner)
-        let voted_out = await voting(people, nominees, hoh)
+        let voted_out = await voting(people, nominees, hoh, blockbuster_winner)
         remove_person(people, voted_out)
         outgoing_hoh = hoh
         jury.push(voted_out)
